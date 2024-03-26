@@ -1,0 +1,4 @@
+name: minimal-clojure-leiningen
+description: A minimal Clojure/Leiningen Pulumi program.
+runtime:
+  name: java

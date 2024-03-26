@@ -264,3 +264,17 @@ func TestSBTExecutor(t *testing.T) {
 	assert.Equal(t, "/usr/bin/sbt", exec.Cmd)
 	assert.Equal(t, []string{"-batch", "run"}, exec.RunArgs)
 }
+
+func TestLeiningenExecutor(t *testing.T) {
+	fsys := fsys.TestFS(".",
+		map[string]string{"lein": "/usr/bin/lein"},
+		fstest.MapFS{
+			"project.clj": {},
+		})
+	exec, err := NewJavaExecutor(JavaExecutorOptions{
+		WD: fsys,
+	})
+	assert.NoError(t, err)
+	assert.Equal(t, "/usr/bin/lein", exec.Cmd)
+	assert.Equal(t, []string{"run"}, exec.RunArgs)
+}

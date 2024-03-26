@@ -56,6 +56,7 @@ func NewJavaExecutor(opts JavaExecutorOptions) (*JavaExecutor, error) {
 		&gradle{},
 		&jbang{},
 		&sbt{},
+		&leiningen{},
 	).NewJavaExecutor(opts)
 	if err != nil {
 		return nil, err
