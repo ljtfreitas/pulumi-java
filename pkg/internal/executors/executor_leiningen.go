@@ -35,8 +35,11 @@ func (leiningen) isLeiningenProject(opts JavaExecutorOptions) (bool, error) {
 		"project.clj",
 	}
 	for _, p := range leinMarkers {
-		_, err := fsys.FileExists(opts.WD, p)
-		if err == nil {
+		exists, err := fsys.FileExists(opts.WD, p)
+		if err != nil {
+			return false, err
+		}
+		if exists {
 			return true, nil
 		}
 	}
@@ -53,7 +56,7 @@ func (leiningen) newLeiningenExecutor(cmd string) (*JavaExecutor, error) {
 			"run",
 		},
 		PluginArgs: []string{
-			"run com.pulumi.bootstrap.internal.Main packages",
+			"run -m com.pulumi.bootstrap.internal.Main packages",
 		},
 	}, nil
 }
